@@ -1,11 +1,23 @@
 {
   "name": "monorail",
-  "author": "carrie.omalley@gmail.com"
-  "version": "0.0.0",
+  "author": "Carrie Beesley <carrie.omalley@gmail.com>",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
   },
+  "bugs": {
+    "url": "https://github.com/carrieomalley/monorail/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/carrieomalley/monorail"
+  },
+  "keywords": [
+  "testrail",
+  "testing",
+  "expressjs"
+  ],
   "dependencies": {
     "express": "~4.9.0",
     "body-parser": "~1.8.1",
