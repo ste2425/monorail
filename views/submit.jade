@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  div(style=".center")
+    h1= title
+   
+   table#results
+       each result, in results
+           tr
+               td= result.id
+               td= result.title
+               td= result.priority
+               td= results.estimate
+               td= results.custom_preconds
+               td
+                   ol
+                       each element, in results.custom_steps_separated
+                           li
+                               ul
+                                   li= element.content
+                                   li= element.expected
+                                   

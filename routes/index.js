@@ -30,7 +30,7 @@ router.post("/submit", function(req, res) {
                     res.send(cases_err.message);
                 } else {
                     results.push(case_res.text);
-                    if (results.length == case_ids.length) res.send(results);
+                    if (results.length == case_ids.length) res.render("submit", {title: "Test cases in suite " + suite_id, results: results});
                 }
             });
         });
