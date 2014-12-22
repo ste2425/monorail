@@ -1,0 +1,27 @@
+//extends layout
+
+block content
+  div(style=".center")
+    h1= title
+    
+   table
+     thead
+       tr: th Case ID
+         th Case Title
+         th Section ID
+         th Display Order
+         th Steps (content/expected)
+
+      for result in results
+        tr
+          td= result.id
+          td= result.title
+          td= result.section_id
+          td= result.display_order
+          td
+            ol
+              for element in result.custom_steps_separated
+                li
+                  ul
+                    li= element.content
+                    li= element.expected
