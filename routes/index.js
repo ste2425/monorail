@@ -19,10 +19,7 @@ router.post('/submit', function(req, res, next) {
     if (suite_err) {
       res.send(suite_err.message);
     }
-    else {
-      console.log(suite_res.body)
-    }
-    var suite_info = suite_res.body
+    var suite_name = suite_res.body.name;
     request.get('http://192.168.200.38/testrail/index.php?/api/v2/get_cases/1' + "&suite_id=" + suite_id)
     .auth('carrie.omalley@cascadehr.co.uk', 'm8tbsauh')
     .type('json')
@@ -30,14 +27,10 @@ router.post('/submit', function(req, res, next) {
       if (cases_err) {
         res.send(cases_err.message);
       }
-      else {
-        console.log(cases_res.body)
-      }
       request.get('http://192.168.200.38/testrail/index.php?/api/v2/get_sections/1' + '&suite_id=' + suite_id)
       .auth('carrie.omalley@cascadehr.co.uk', 'm8tbsauh')
       .type('json')
       .end(function(sections_err, sections_res) {
-        console.log(sections_res.body)
         var case_ids = cases_res.body;
         case_ids.forEach(function(e, i, o) {
           var case_id = e.id;
@@ -49,7 +42,6 @@ router.post('/submit', function(req, res, next) {
               res.send(case_err.message);
             } else {
               var result = JSON.parse(case_res.text);
-              // console.log(result.custom_steps_separated);
               if (result.custom_steps_separated === null) {
                 result.custom_steps_separated = [];
               }
@@ -64,7 +56,7 @@ router.post('/submit', function(req, res, next) {
                   results[i].display_order = sectionPositions[sectionIds.indexOf(e.section_id)];
                 });
                 res.render('submit', {
-                  title: suite_info[1] + suite_id,
+                  title: 'Suite ' + suite_id + ': ' + suite_name,
                   results: results.sort(function(a, b) {
                     return a.display_order - b.display_order;
                   })
@@ -76,11 +68,12 @@ router.post('/submit', function(req, res, next) {
       });
     });
   });
+});
 
-  router.get("/test", function(req, res, next) {
-    next({
-      ErrorMessage: 'oh noes'
-    });
-  })
+router.get("/test", function(req, res, next) {
+  next({
+    ErrorMessage: 'oh noes'
+  });
+});
 
-  module.exports = router;
+module.exports = router;
