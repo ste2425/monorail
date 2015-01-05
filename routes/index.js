@@ -19,6 +19,9 @@ router.post('/submit', function(req, res, next) {
             if (cases_err) {
                 res.send(cases_err.message);
             }
+            else {
+              console.log(cases_res.body)
+            }
             request.get('http://192.168.200.38/testrail/index.php?/api/v2/get_sections/1' + '&suite_id=' + suite_id)
                 .auth('carrie.omalley@cascadehr.co.uk', 'm8tbsauh')
                 .type('json')
